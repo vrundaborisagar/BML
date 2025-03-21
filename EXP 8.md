@@ -1,3 +1,4 @@
+
 # K-Means Clustering in Python
 
 ## Overview
@@ -57,7 +58,8 @@ plt.ylabel('Feature 2')
 plt.legend()
 plt.show()
 ```
-
+### Output:
+![download](https://github.com/user-attachments/assets/4da53ed0-5b95-4a58-84c5-d79150673f7c)
 
 
 
