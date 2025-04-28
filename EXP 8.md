@@ -1,70 +1,97 @@
+# K-Means Clustering on Iris Dataset
 
-# K-Means Clustering in Python
+This project applies **K-Means Clustering** on the famous **Iris dataset** using two features: *sepal length* and *sepal width*.  
+The dataset is first **standardized**, then **clustered** into 3 groups, and finally **visualized**.
 
-## Overview
-This project implements the K-Means clustering algorithm using Python. K-Means is an unsupervised machine learning algorithm used for grouping data points into `k` clusters based on feature similarity.
+---
 
-## Features
-- Implementation using `scikit-learn`
-- Automatic grouping of data into clusters
-- Adjustable `k` value for tuning
-- Visualization of clustered data
+## Project Structure
 
-## Requirements
-Ensure you have the following Python libraries installed:
+- **Load Dataset**  
+  Load the Iris dataset and assign appropriate column names.
 
-```sh
-pip install numpy pandas scikit-learn matplotlib seaborn
+- **Feature Selection**  
+  Select *sepal length* and *sepal width* as the features for clustering.
+
+- **Data Preprocessing**  
+  Standardize features using `StandardScaler` to improve clustering performance.
+
+- **K-Means Clustering**  
+  Apply K-Means algorithm to group the data points into 3 clusters.
+
+- **Visualization**  
+  Plot the clusters along with the centroids.
+
+---
+
+## Dependencies
+
+Make sure you have the following Python libraries installed:
+- `numpy`
+- `pandas`
+- `matplotlib`
+- `scikit-learn`
+
+You can install them using:
+
+```bash
+pip install numpy pandas matplotlib scikit-learn
 ```
-
-## Usage
-### Run the Script
-Execute the Python script to perform K-Means clustering:
-
-```sh
-python kmeans_clustering.py
-```
-
-## Example Code
+## code
 ```python
+# Import necessary libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-# Load dataset
-df = pd.read_csv('data.csv')  # Replace with your dataset
-X = df[['Feature1', 'Feature2']]  # Select relevant features
+# 1. Load Dataset
+# Assign column names to the Iris dataset
+columns = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width', 'target']
+df = pd.read_csv('/content/drive/MyDrive/Datasets/iris.data', names=columns)
 
-# Standardizing features
+# 2. Feature Selection
+# Select only sepal length and sepal width for clustering
+X = df[['sepal_length', 'sepal_width']]
+
+# 3. Data Preprocessing
+# Standardize the features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# Applying K-Means
-k = 3  # Number of clusters
+# 4. K-Means Clustering
+# Define the number of clusters (k)
+k = 3
 kmeans = KMeans(n_clusters=k, random_state=42)
 kmeans.fit(X_scaled)
 
-# Adding cluster labels to the dataset
+# 5. Adding Cluster Labels
+# Add the cluster labels to the original dataframe
 df['Cluster'] = kmeans.labels_
 
-# Visualizing the clusters
+# 6. Visualization
+# Plotting the clusters and centroids
+plt.figure(figsize=(8, 6))
 plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=kmeans.labels_, cmap='viridis', edgecolors='k')
-plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=300, c='red', marker='X', label='Centroids')
-plt.title('K-Means Clustering')
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
+plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
+            s=300, c='red', marker='X', label='Centroids')
+plt.title('K-Means Clustering on Iris Dataset')
+plt.xlabel('Sepal Length (scaled)')
+plt.ylabel('Sepal Width (scaled)')
 plt.legend()
+plt.grid(True)
 plt.show()
+
 ```
-### Output:
-![download](https://github.com/user-attachments/assets/4da53ed0-5b95-4a58-84c5-d79150673f7c)
+## output
+![image](https://github.com/user-attachments/assets/fb1adc4c-8c44-4e53-bb59-c4a69fb58fdc)
 
+## Conclusion
 
+- The **K-Means algorithm** successfully grouped the Iris dataset into **three distinct clusters**.
+- The clusters roughly correspond to the natural species categories: *Iris-setosa*, *Iris-versicolor*, and *Iris-virginica*.
+- **Standardizing** the features helped ensure that both dimensions contributed equally during clustering.
+- Although the clustering worked well for the chosen features (*sepal length* and *sepal width*), some **overlap** between species can still exist due to feature similarities.
+- The visualization shows a clear separation of clusters with centroids highlighted in red.
 
-
-
-
-## License
-This project is licensed under the MIT License.
