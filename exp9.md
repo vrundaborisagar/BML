@@ -38,7 +38,7 @@ Principal Component Analysis (PCA) is a **dimensionality reduction** technique u
 Using PCA on a dataset with 100 features, we might reduce it to just **2 or 3** features while keeping most of the original information.
 
 ## code
-```
+```python
 import numpy as np
 import pandas as pd
 
@@ -78,7 +78,7 @@ print(pd.DataFrame(comps, columns=["PC1", "PC2"]))
 ```
 
 ## Output
-```
+```python
 Original Dataset:
    Feature1  Feature2  Feature3
 0  0.388677  0.271349  0.828738
